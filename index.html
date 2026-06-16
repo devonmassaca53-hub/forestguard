@@ -34,8 +34,8 @@
             --success: #2a9d8f;
             --shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.2);
-            --border-radius: 28px;
-            --border-radius-sm: 18px;
+            --border-radius: 1.75rem;
+            --border-radius-sm: 1.2rem;
             --transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
@@ -44,8 +44,9 @@
             background: var(--bg-gradient);
             color: var(--text-light);
             min-height: 100vh;
-            padding: 16px;
+            padding: max(1rem, 3vw);
             transition: background 0.3s ease;
+            overflow-x: hidden;
         }
 
         body.light {
@@ -69,23 +70,22 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            transition: opacity 0.5s;
         }
         .login-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
-            border-radius: 60px;
-            padding: 40px 28px;
-            width: 90%;
+            border-radius: 3.5rem;
+            padding: 2rem 1.5rem;
+            width: 85%;
             max-width: 340px;
             text-align: center;
             border: 1px solid var(--primary-glow);
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+            box-shadow: var(--shadow);
             animation: fadeInUp 0.6s ease;
         }
         .login-card h2 {
-            margin: 16px 0 8px;
-            font-size: 1.8rem;
+            margin: 0.8rem 0 0.5rem;
+            font-size: clamp(1.5rem, 8vw, 2rem);
             font-weight: 800;
             background: linear-gradient(135deg, #95d5b2, #2d6a4f);
             -webkit-background-clip: text;
@@ -94,35 +94,33 @@
         }
         .login-card input {
             width: 100%;
-            padding: 16px;
+            padding: 1rem;
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--primary-light);
             border-radius: 60px;
             color: white;
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-align: center;
-            margin: 20px 0;
-            letter-spacing: 2px;
+            margin: 1.2rem 0;
         }
         .login-card button {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             width: 100%;
-            padding: 14px;
+            padding: 0.9rem;
             border: none;
             border-radius: 60px;
             color: white;
             font-weight: bold;
             font-size: 1rem;
             cursor: pointer;
-            transition: var(--transition);
         }
-        .login-card button:active { transform: scale(0.97); }
 
         /* Dashboard principal */
         #appContent {
             display: none;
-            max-width: 550px;
+            max-width: 1200px;
             margin: 0 auto;
+            width: 100%;
         }
 
         /* Header */
@@ -132,14 +130,14 @@
             align-items: center;
             background: var(--card-bg);
             backdrop-filter: blur(12px);
-            padding: 12px 20px;
+            padding: 0.8rem 1.2rem;
             border-radius: 60px;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
             border: 1px solid var(--card-border);
-            box-shadow: var(--shadow-sm);
+            flex-wrap: wrap;
         }
         .logo h1 {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 6vw, 1.6rem);
             font-weight: 800;
             background: linear-gradient(135deg, #a7e0b0, #2d6a4f);
             -webkit-background-clip: text;
@@ -147,52 +145,45 @@
             color: transparent;
         }
         .logo p { font-size: 0.7rem; color: var(--text-muted); }
-        .user-area { display: flex; gap: 12px; align-items: center; }
+        .user-area { display: flex; gap: 0.8rem; align-items: center; }
         .user-photo {
-            width: 48px;
-            height: 48px;
-            border-radius: 48px;
-            background: linear-gradient(145deg, var(--primary), var(--primary-light));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            width: 44px;
+            height: 44px;
+            border-radius: 44px;
+            background: var(--primary);
             border: 2px solid var(--primary-glow);
+            overflow: hidden;
         }
         .user-photo img { width: 100%; height: 100%; object-fit: cover; }
         .mic-btn, .theme-toggle {
             background: rgba(255, 255, 255, 0.12);
             border: none;
-            width: 48px;
-            height: 48px;
-            border-radius: 48px;
-            font-size: 1.4rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 44px;
+            font-size: 1.3rem;
             cursor: pointer;
-            transition: all 0.2s ease;
             color: var(--text-light);
         }
-        .mic-btn.listening { background: var(--danger); box-shadow: 0 0 12px var(--danger-glow); animation: pulse 1s infinite; }
+        .mic-btn.listening { background: var(--danger); animation: pulse 1s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
-        /* Tabs com slide invisível (scroll sem barra) */
+        /* Tabs com scroll invisível */
         .tabs {
             display: flex;
-            gap: 10px;
+            gap: 0.6rem;
             overflow-x: auto;
-            overflow-y: hidden;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             scroll-behavior: smooth;
         }
-        .tabs::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
-        }
+        .tabs::-webkit-scrollbar { display: none; }
         .tab-btn {
             background: rgba(30, 50, 30, 0.6);
             border: none;
-            padding: 12px 24px;
+            padding: 0.7rem 1.2rem;
             border-radius: 40px;
             color: var(--text-light);
             font-weight: 600;
@@ -200,9 +191,8 @@
             white-space: nowrap;
             cursor: pointer;
             transition: all 0.2s;
-            backdrop-filter: blur(4px);
         }
-        .tab-btn i { margin-right: 6px; }
+        .tab-btn i { margin-right: 0.4rem; }
         .tab-btn.active {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             box-shadow: 0 4px 15px rgba(45, 106, 79, 0.5);
@@ -216,35 +206,29 @@
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: clamp(1rem, 4vw, 1.5rem);
+            margin-bottom: 1.5rem;
             border: 1px solid var(--card-border);
             transition: var(--transition);
             box-shadow: var(--shadow-sm);
-            animation: cardGlow 3s infinite alternate;
         }
-        @keyframes cardGlow {
-            0% { box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-            100% { box-shadow: 0 5px 25px rgba(82,183,136,0.3); }
-        }
-        .card:active { transform: scale(0.99); }
         .card-title {
-            font-size: 1.25rem;
+            font-size: clamp(1.1rem, 5vw, 1.3rem);
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 1rem;
             border-left: 5px solid var(--primary-light);
-            padding-left: 14px;
+            padding-left: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
+            flex-wrap: wrap;
         }
         .live-badge {
             background: var(--danger);
             color: white;
             font-size: 0.65rem;
-            padding: 2px 8px;
+            padding: 0.2rem 0.6rem;
             border-radius: 30px;
-            margin-left: 8px;
             animation: blink 1.5s infinite;
         }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
@@ -252,116 +236,97 @@
         /* Sensor grid */
         .sensors-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
         }
         .sensor-card {
             background: rgba(0, 0, 0, 0.25);
-            border-radius: 24px;
-            padding: 16px 12px;
+            border-radius: 1.5rem;
+            padding: 1rem 0.8rem;
             text-align: center;
-            transition: transform 0.2s;
-            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .sensor-card:hover { transform: translateY(-4px); }
-        .sensor-card i { font-size: 2.2rem; margin-bottom: 8px; color: var(--primary-glow); }
-        .sensor-card .value { font-size: 1.7rem; font-weight: 800; margin: 8px 0; }
+        .sensor-card i { font-size: clamp(1.5rem, 6vw, 2.2rem); margin-bottom: 0.5rem; color: var(--primary-glow); }
+        .sensor-card .value { font-size: clamp(1.3rem, 5vw, 1.7rem); font-weight: 800; margin: 0.5rem 0; }
         .status-badge {
             display: inline-block;
-            padding: 4px 12px;
+            padding: 0.2rem 0.8rem;
             border-radius: 30px;
             font-size: 0.7rem;
             font-weight: 700;
         }
-        .status-normal { background: var(--success); color: #0a1f0e; }
-        .status-warning { background: var(--warning); color: #2c1e0f; }
-        .status-critical { background: var(--danger); color: white; }
 
         /* Cargas */
-        .loads-grid { display: flex; flex-direction: column; gap: 14px; }
+        .loads-grid { display: flex; flex-direction: column; gap: 1rem; }
         .load-card {
             background: rgba(0, 0, 0, 0.25);
-            border-radius: 24px;
-            padding: 16px;
+            border-radius: 1.5rem;
+            padding: 1rem;
         }
-        .load-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
-        .mode-buttons { display: flex; gap: 10px; margin: 12px 0; }
+        .mode-buttons { display: flex; gap: 0.7rem; margin: 0.8rem 0; }
         .mode-btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.1);
             border: none;
-            padding: 6px 14px;
-            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
             font-size: 0.75rem;
             font-weight: 600;
             cursor: pointer;
         }
-        .mode-btn.active-mode { background: var(--primary); box-shadow: 0 0 6px var(--primary-glow); }
+        .mode-btn.active-mode { background: var(--primary); }
         .load-btn {
             background: linear-gradient(135deg, var(--secondary), #b8865c);
             border: none;
-            padding: 12px;
+            padding: 0.8rem;
             border-radius: 60px;
             font-weight: bold;
             width: 100%;
             cursor: pointer;
-            transition: 0.2s;
         }
-        .load-btn:active { transform: scale(0.97); }
         .load-btn.disabled-btn { opacity: 0.5; pointer-events: none; }
-        .auto-status { font-size: 0.7rem; text-align: center; margin-top: 8px; color: var(--text-muted); }
-        .esp-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 6px 12px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-        }
-        .esp-online { color: var(--success); }
-        .esp-offline { color: var(--danger); }
+        .auto-status { font-size: 0.7rem; text-align: center; margin-top: 0.5rem; }
+        .esp-status { display: flex; align-items: center; gap: 0.5rem; background: rgba(0,0,0,0.3); padding: 0.4rem 1rem; border-radius: 40px; font-size: 0.8rem; width: fit-content; }
 
         /* Alertas */
-        .alert-list {
-            max-height: 280px;
-            overflow-y: auto;
-        }
+        .alert-list { max-height: 280px; overflow-y: auto; }
         .alert-item {
             background: rgba(0, 0, 0, 0.2);
-            padding: 12px 14px;
-            border-radius: 20px;
-            margin-bottom: 8px;
+            padding: 0.8rem;
+            border-radius: 1.2rem;
+            margin-bottom: 0.6rem;
             border-left: 5px solid var(--warning);
-            animation: slideIn 0.2s;
+            font-size: 0.85rem;
         }
-        .alert-item strong { color: var(--warning); }
 
-        /* Gráfico */
-        canvas { max-height: 180px; width: 100%; }
+        canvas { max-height: 200px; width: 100%; }
 
         /* Settings */
         .settings-group {
             background: rgba(0, 0, 0, 0.2);
-            border-radius: 24px;
-            padding: 16px;
-            margin-bottom: 16px;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
         }
-        .settings-group label { display: flex; align-items: center; gap: 12px; font-weight: 500; }
-        input[type="range"] { width: 100%; margin-top: 12px; accent-color: var(--primary); }
+        .settings-group label { display: flex; align-items: center; gap: 0.8rem; font-weight: 500; flex-wrap: wrap; }
+        input[type="range"] { width: 100%; margin-top: 0.5rem; accent-color: var(--primary); }
 
         /* Animações */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* Responsivo */
-        @media (max-width: 480px) {
-            body { padding: 12px; }
-            .sensor-card .value { font-size: 1.4rem; }
-            .sensor-card i { font-size: 1.8rem; }
-            .card-title { font-size: 1.1rem; }
-            .tab-btn { padding: 8px 16px; font-size: 0.75rem; }
-            .mic-btn, .theme-toggle, .user-photo { width: 44px; height: 44px; }
+        @media (max-width: 600px) {
+            .sensors-grid { grid-template-columns: 1fr; }
+            .tab-btn { padding: 0.5rem 1rem; font-size: 0.75rem; }
+            .mic-btn, .theme-toggle, .user-photo { width: 40px; height: 40px; }
+            .card-title { font-size: 1rem; }
+        }
+        @media (max-width: 380px) {
+            .header { flex-direction: column; text-align: center; }
+            .user-area { margin-top: 0.5rem; }
+        }
+        @media (orientation: landscape) and (max-height: 500px) {
+            body { padding: 0.8rem; }
+            .tabs { margin-bottom: 0.8rem; }
+            .card { padding: 0.8rem; }
         }
     </style>
 </head>
@@ -372,10 +337,10 @@
     <div class="login-card">
         <i class="fas fa-tree" style="font-size: 3.5rem; color: var(--primary-glow);"></i>
         <h2>ForestGuard Pro</h2>
-        <p style="font-size: 0.8rem; margin-bottom: 8px;">Estufa Inteligente</p>
+        <p style="font-size: 0.8rem;">Estufa Inteligente</p>
         <input type="password" id="loginPass" placeholder="Código 1234" autocomplete="off">
         <button id="loginBtn">Acessar Sistema</button>
-        <div id="loginError" style="color: var(--danger); margin-top: 12px; font-size: 0.8rem;"></div>
+        <div id="loginError" style="color: var(--danger); margin-top: 0.8rem;"></div>
     </div>
 </div>
 
@@ -388,14 +353,14 @@
         </div>
         <div class="user-area">
             <div class="user-photo">
-                <img src="user.png" alt="Gestor" onerror="this.src='https://via.placeholder.com/48?text=G'">
+                <img src="user.png" alt="Gestor" onerror="this.src='https://via.placeholder.com/44?text=G'">
             </div>
             <button class="mic-btn" id="micBtn"><i class="fas fa-microphone"></i></button>
             <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
         </div>
     </div>
 
-    <!-- Abas com slide invisível -->
+    <!-- Abas -->
     <div class="tabs">
         <button class="tab-btn active" data-tab="dashboard"><i class="fas fa-chart-line"></i> Visão Geral</button>
         <button class="tab-btn" data-tab="sensores"><i class="fas fa-microchip"></i> Sensores</button>
@@ -412,7 +377,7 @@
         </div>
         <div class="card">
             <div class="card-title"><i class="fas fa-water"></i> Status dos Atuadores</div>
-            <div id="actuatorStatusDashboard" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;"></div>
+            <div id="actuatorStatusDashboard" style="display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center;"></div>
         </div>
     </div>
 
@@ -433,11 +398,11 @@
         <div class="loads-grid" id="loadsContainer"></div>
         <div class="card">
             <div class="card-title"><i class="fas fa-info-circle"></i> Lógica Automática</div>
-            <ul style="margin-left: 20px; font-size: 0.8rem;">
-                <li>💧 <strong>Irrigação (Auto):</strong> solo &lt;40% liga, &gt;65% desliga</li>
-                <li>🌀 <strong>Ventilação (Auto):</strong> temp >32°C liga, &lt;26°C desliga</li>
-                <li>💡 <strong>Luzes:</strong> modo manual</li>
-                <li>🎤 <strong>Comandos de voz:</strong> "estado", "liga rega", "desliga ventilação", "desliga tudo"</li>
+            <ul style="margin-left: 1.5rem; font-size: 0.8rem;">
+                <li>💧 Irrigação (Auto): solo &lt;40% liga, &gt;65% desliga</li>
+                <li>🌀 Ventilação (Auto): temp >32°C liga, &lt;26°C desliga</li>
+                <li>💡 Luzes: modo manual</li>
+                <li>🎤 Comandos de voz: "estado", "liga a rega", "desliga a ventilação", "desliga tudo"</li>
             </ul>
         </div>
     </div>
@@ -447,7 +412,7 @@
         <div class="card">
             <div class="card-title"><i class="fas fa-exclamation-triangle"></i> Histórico de Alertas</div>
             <div id="alertList" class="alert-list">Nenhum alerta registrado.</div>
-            <button id="clearAlerts" style="margin-top: 16px; background: linear-gradient(135deg, #2d6a4f, #1b4d3b); border: none; padding: 12px; border-radius: 40px; width: 100%; font-weight: bold; cursor: pointer;">Limpar histórico</button>
+            <button id="clearAlerts" style="margin-top: 1rem; background: var(--primary); border: none; padding: 0.7rem; border-radius: 40px; width: 100%; font-weight: bold; cursor: pointer;">Limpar histórico</button>
         </div>
     </div>
 
@@ -457,7 +422,7 @@
             <div class="card-title"><i class="fas fa-microphone-alt"></i> Assistente de Voz (Atlas)</div>
             <div class="settings-group">
                 <label><input type="checkbox" id="voiceEnabledCheckbox"> Ativar comandos de voz e alertas falados</label>
-                <p style="font-size: 0.75rem; margin-top: 8px;">Ao ativar, o áudio de boas‑vindas será reproduzido.</p>
+                <p style="font-size: 0.75rem; margin-top: 0.5rem;">Ao ativar, o áudio de boas‑vindas será reproduzido.</p>
             </div>
             <div class="settings-group">
                 <label>Volume dos áudios: <span id="volumeValue">80</span>%</label>
@@ -536,6 +501,27 @@
         Object.values(audios).forEach(a => a.volume = volumeGlobal);
     }
 
+    // ==================== INICIALIZAR NÓ ATUADORES ====================
+    function inicializarAtuadores() {
+        if (!database) return;
+        const ref = database.ref("estufa/atuadores");
+        ref.once("value", (snapshot) => {
+            if (!snapshot.exists()) {
+                ref.set({
+                    irrigacao: { estado: false, modo: "auto" },
+                    ventilacao: { estado: false, modo: "auto" },
+                    luzes: { estado: false, modo: "manual" }
+                }).then(() => {
+                    console.log("✅ Nó atuadores criado no Firebase");
+                }).catch((error) => {
+                    console.error("❌ Erro ao criar atuadores:", error);
+                });
+            } else {
+                console.log("✅ Nó atuadores já existe");
+            }
+        });
+    }
+
     // ==================== FIREBASE LISTENER ====================
     function iniciarListenerFirebase() {
         if (!database) return;
@@ -597,7 +583,7 @@
         if (nome === "luzes") return;
         cargas[nome].modo = cargas[nome].modo === "auto" ? "manual" : "auto";
         atualizarInterface();
-        adicionarAlerta(`🔄 Modo da ${nome} alterado para ${cargas[nome].modo.toUpperCase()}`);
+        adicionarAlerta(`Modo da ${nome} alterado para ${cargas[nome].modo.toUpperCase()}`);
         if (database) database.ref("estufa/atuadores/" + nome).update({ modo: cargas[nome].modo });
     }
 
@@ -905,6 +891,7 @@
     function iniciarSistema() {
         initChart();
         iniciarListenerFirebase();
+        inicializarAtuadores();  // <--- CRIA O NÓ ATUADORES SE NÃO EXISTIR
         carregarPreferencias();
         setVolume(parseInt(document.getElementById("volumeSlider").value));
         atualizarInterface();
