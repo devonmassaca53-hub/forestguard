@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <meta name="theme-color" content="#0a2f1a">
-    <title>ForestGuard Pro - Estufa Inteligente</title>
+    <title>Atlas ForestGuard - Estufa Inteligente</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
+        /* ====== RESET E VARIÁVEIS ====== */
         * {
             margin: 0;
             padding: 0;
@@ -57,7 +58,7 @@
             --text-muted: #2d5a2d;
         }
 
-        /* Login Overlay */
+        /* ====== LOGIN ====== */
         #loginOverlay {
             position: fixed;
             top: 0;
@@ -114,8 +115,14 @@
             font-size: 1rem;
             cursor: pointer;
         }
+        .login-footer {
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
 
-        /* Dashboard principal */
+        /* ====== DASHBOARD PRINCIPAL ====== */
         #appContent {
             display: none;
             max-width: 1200px;
@@ -123,7 +130,7 @@
             width: 100%;
         }
 
-        /* Header */
+        /* ====== HEADER ====== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -144,7 +151,12 @@
             background-clip: text;
             color: transparent;
         }
-        .logo p { font-size: 0.7rem; color: var(--text-muted); }
+        .logo .sub {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+        }
         .user-area { display: flex; gap: 0.8rem; align-items: center; }
         .user-photo {
             width: 44px;
@@ -170,7 +182,7 @@
         .mic-btn.listening { background: var(--danger); animation: pulse 1s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
-        /* Tabs com scroll invisível */
+        /* ====== TABS ====== */
         .tabs {
             display: flex;
             gap: 0.6rem;
@@ -204,7 +216,7 @@
         .tab-content { display: none; animation: fadeIn 0.3s; }
         .tab-content.active { display: block; }
 
-        /* Cards com luminescência */
+        /* ====== CARDS ====== */
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -241,7 +253,7 @@
         }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
-        /* Sensor grid – ícones interativos */
+        /* ====== SENSORES ====== */
         .sensors-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -273,7 +285,7 @@
             font-weight: 700;
         }
 
-        /* Aba Controle – melhorada esteticamente */
+        /* ====== CONTROLE (sem textos explicativos) ====== */
         .loads-grid { display: flex; flex-direction: column; gap: 1.2rem; }
         .load-card {
             background: rgba(0, 0, 0, 0.25);
@@ -349,7 +361,20 @@
         .auto-status { font-size: 0.7rem; text-align: center; margin-top: 0.5rem; color: var(--text-muted); }
         .esp-status { display: flex; align-items: center; gap: 0.5rem; background: rgba(0,0,0,0.3); padding: 0.4rem 1rem; border-radius: 40px; font-size: 0.8rem; width: fit-content; }
 
-        /* Alertas */
+        /* ====== FOOTER (assinatura) ====== */
+        .app-footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(82, 183, 136, 0.3);
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.6;
+            letter-spacing: 0.3px;
+        }
+        .app-footer strong { color: var(--primary-glow); }
+
+        /* ====== ALERTAS ====== */
         .alert-list { max-height: 280px; overflow-y: auto; }
         .alert-item {
             background: rgba(0, 0, 0, 0.2);
@@ -362,7 +387,7 @@
 
         canvas { max-height: 200px; width: 100%; }
 
-        /* Settings */
+        /* ====== SETTINGS ====== */
         .settings-group {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 1.5rem;
@@ -372,10 +397,11 @@
         .settings-group label { display: flex; align-items: center; gap: 0.8rem; font-weight: 500; flex-wrap: wrap; }
         input[type="range"] { width: 100%; margin-top: 0.5rem; accent-color: var(--primary); }
 
-        /* Animações */
+        /* ====== ANIMAÇÕES ====== */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* ====== RESPONSIVO ====== */
         @media (max-width: 600px) {
             .sensors-grid { grid-template-columns: 1fr; }
             .tab-btn { padding: 0.5rem 1rem; font-size: 0.75rem; }
@@ -395,24 +421,26 @@
 </head>
 <body>
 
-<!-- Login Overlay -->
+<!-- ====== LOGIN ====== -->
 <div id="loginOverlay">
     <div class="login-card">
         <i class="fas fa-tree" style="font-size: 3.5rem; color: var(--primary-glow);"></i>
-        <h2>ForestGuard Pro</h2>
+        <h2>Atlas ForestGuard</h2>
         <p style="font-size: 0.8rem;">Estufa Inteligente</p>
         <input type="password" id="loginPass" placeholder="Código 1234" autocomplete="off">
         <button id="loginBtn">Acessar Sistema</button>
         <div id="loginError" style="color: var(--danger); margin-top: 0.8rem;"></div>
+        <div class="login-footer">⚙️ Desenvolvido por Atlas – Tecnologia para o futuro</div>
     </div>
 </div>
 
-<!-- Conteúdo principal -->
+<!-- ====== CONTEÚDO PRINCIPAL ====== -->
 <div id="appContent">
+    <!-- HEADER -->
     <div class="header">
         <div class="logo">
-            <h1><i class="fas fa-leaf"></i> ForestGuard</h1>
-            <p>Controle Inteligente | Voz Ativa</p>
+            <h1><i class="fas fa-leaf"></i> Atlas ForestGuard</h1>
+            <div class="sub">⚡ Gestão inteligente para sua estufa</div>
         </div>
         <div class="user-area">
             <div class="user-photo">
@@ -423,7 +451,7 @@
         </div>
     </div>
 
-    <!-- Abas -->
+    <!-- TABS -->
     <div class="tabs">
         <button class="tab-btn active" data-tab="dashboard"><i class="fas fa-chart-line"></i> Visão Geral</button>
         <button class="tab-btn" data-tab="sensores"><i class="fas fa-microchip"></i> Sensores</button>
@@ -432,7 +460,7 @@
         <button class="tab-btn" data-tab="settings"><i class="fas fa-sliders-h"></i> Ajustes</button>
     </div>
 
-    <!-- Dashboard -->
+    <!-- DASHBOARD -->
     <div id="dashboard" class="tab-content active">
         <div class="card">
             <div class="card-title"><i class="fas fa-chart-line"></i> Resumo da Estufa <span class="live-badge">AO VIVO</span></div>
@@ -444,7 +472,7 @@
         </div>
     </div>
 
-    <!-- Sensores -->
+    <!-- SENSORES -->
     <div id="sensores" class="tab-content">
         <div class="card">
             <div class="card-title"><i class="fas fa-thermometer-half"></i> Sensores Ambientais</div>
@@ -456,21 +484,19 @@
         </div>
     </div>
 
-    <!-- Controle de Cargas (melhorado esteticamente) -->
+    <!-- CONTROLE (sem textos explicativos) -->
     <div id="cargas" class="tab-content">
         <div class="loads-grid" id="loadsContainer"></div>
         <div class="card">
-            <div class="card-title"><i class="fas fa-info-circle"></i> Lógica Automática</div>
-            <ul style="margin-left: 1.5rem; font-size: 0.8rem;">
-                <li>💧 Irrigação (Auto): solo &lt;35% liga, &gt;65% desliga (com histerese)</li>
-                <li>🌀 Ventilação (Auto): temp >33°C liga, &lt;27°C desliga (com histerese e temporização)</li>
-                <li>💡 Luzes: modo manual</li>
-                <li>🎤 Comandos de voz: "estado", "liga a rega", "desliga a ventilação", "desliga tudo"</li>
-            </ul>
+            <div class="card-title"><i class="fas fa-info-circle"></i> Sobre o sistema</div>
+            <p style="font-size: 0.85rem; opacity: 0.8; font-style: italic;">
+                🌱 <strong>Atlas ForestGuard</strong> – Sistema inteligente de monitorização e controlo de estufas florestais. 
+                Desenvolvido para garantir a sustentabilidade e produtividade das suas culturas.
+            </p>
         </div>
     </div>
 
-    <!-- Alertas -->
+    <!-- ALERTAS -->
     <div id="alertas" class="tab-content">
         <div class="card">
             <div class="card-title"><i class="fas fa-exclamation-triangle"></i> Histórico de Alertas</div>
@@ -479,13 +505,13 @@
         </div>
     </div>
 
-    <!-- Definições -->
+    <!-- DEFINIÇÕES -->
     <div id="settings" class="tab-content">
         <div class="card">
             <div class="card-title"><i class="fas fa-microphone-alt"></i> Assistente de Voz (Atlas)</div>
             <div class="settings-group">
                 <label><input type="checkbox" id="voiceEnabledCheckbox"> Ativar comandos de voz e alertas falados</label>
-                <p style="font-size: 0.75rem; margin-top: 0.5rem;">Ao ativar, o áudio de boas‑vindas será reproduzido.</p>
+                <p style="font-size: 0.75rem; margin-top: 0.5rem;">Ao ativar, o assistente Atlas dará as boas‑vindas.</p>
             </div>
             <div class="settings-group">
                 <label>Volume dos áudios: <span id="volumeValue">80</span>%</label>
@@ -499,6 +525,11 @@
                 <input type="range" id="maxAlertsSlider" min="5" max="50" value="20">
             </div>
         </div>
+    </div>
+
+    <!-- ====== FOOTER (ASSINATURA) ====== -->
+    <div class="app-footer">
+        © 2026 <strong>Atlas</strong> – Gestão Inteligente de Estufas Florestais · v2.0
     </div>
 </div>
 
@@ -618,7 +649,7 @@
         });
     }
 
-    // ==================== AUTOMAÇÃO COM HISTERESE E TEMPORIZAÇÃO ====================
+    // ==================== AUTOMAÇÃO ====================
     function aplicarAutomacao() {
         const agora = Date.now();
         if (cargas.irrigacao.modo === "auto") {
@@ -674,7 +705,6 @@
         const dadosValidos = espOnline && (Date.now() - ultimaAtualizacao < 20000);
         const val = (v) => dadosValidos ? v.toFixed(1) : "---";
 
-        // Sensores detalhados
         document.getElementById("sensorsDetailed").innerHTML = `
             <div class="sensor-card">
                 <i class="fas fa-temperature-high"></i>
@@ -706,7 +736,6 @@
             </div>
         `;
 
-        // Dashboard resumo
         document.getElementById("dashboardSensors").innerHTML = `
             <div class="sensor-card"><i class="fas fa-thermometer-half"></i><div>Temp</div><div class="value ${!dadosValidos ? 'offline' : ''}">${val(sensorData.temperatura)}°C</div></div>
             <div class="sensor-card"><i class="fas fa-tint"></i><div>Umidade</div><div class="value ${!dadosValidos ? 'offline' : ''}">${val(sensorData.umidadeAr)}%</div></div>
@@ -714,7 +743,6 @@
             <div class="sensor-card"><i class="fas fa-smog"></i><div>Gás</div><div class="value ${!dadosValidos ? 'offline' : ''}">${dadosValidos ? sensorData.gas : '---'} ppm</div></div>
         `;
 
-        // Status atuadores + ESP
         const actDiv = document.getElementById("actuatorStatusDashboard");
         actDiv.innerHTML = `
             <div class="esp-status"><i class="fas ${espOnline ? 'fa-wifi' : 'fa-exclamation-triangle'}"></i> <span class="${espOnline ? 'esp-online' : 'esp-offline'}">ESP ${espOnline ? 'Conectado' : 'Offline'}</span></div>
@@ -723,7 +751,7 @@
             <div><i class="fas fa-lightbulb"></i> Luzes: ${cargas.luzes.estado ? "✅ Ligadas" : "⭕ Desligadas"}</div>
         `;
 
-        // ==================== ABA CONTROLE MELHORADA ====================
+        // ====== CONTROLE (sem textos explicativos) ======
         const container = document.getElementById("loadsContainer");
         container.innerHTML = "";
         for (let nome of ["irrigacao", "ventilacao", "luzes"]) {
@@ -751,7 +779,6 @@
                 </div>
             `;
         }
-        // Eventos dos botões de modo e carga
         document.querySelectorAll(".mode-btn").forEach(btn => {
             btn.addEventListener("click", () => alternarModo(btn.dataset.carga));
         });
@@ -767,7 +794,6 @@
             });
         });
 
-        // Gráfico de temperatura
         if (tempChart && dadosValidos) {
             tempHistory.push(sensorData.temperatura);
             if (tempHistory.length > 12) tempHistory.shift();
@@ -784,7 +810,7 @@
         alertDiv.innerHTML = alertas.map(a => `<div class="alert-item"><strong>${a.time}</strong> - ${a.msg}</div>`).join("");
         if (alertas.length === 0) alertDiv.innerHTML = "Nenhum alerta registrado.";
         if (Notification.permission === "granted") {
-            new Notification("ForestGuard Alerta", { body: mensagem });
+            new Notification("Atlas ForestGuard", { body: mensagem });
         }
     }
 
@@ -803,7 +829,7 @@
         }
     }
 
-    // ==================== COMANDOS DE VOZ ====================
+    // ==================== VOZ ====================
     let recognition = null;
     if ('webkitSpeechRecognition' in window) {
         recognition = new webkitSpeechRecognition();
@@ -960,7 +986,7 @@
         });
     });
 
-    // ==================== LOGIN E INICIALIZAÇÃO ====================
+    // ==================== LOGIN ====================
     const loginOverlay = document.getElementById("loginOverlay");
     const appContent = document.getElementById("appContent");
     const loginBtn = document.getElementById("loginBtn");
